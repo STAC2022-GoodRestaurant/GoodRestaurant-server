@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import passport from "passport";
 import { HttpResponse } from "../shared/response/response";
-import { Role, UserEntity } from "../user/entity/user.entity";
+import { Role, UserEntity } from "../user/model/entity/user.entity";
 
 export class Middleware {
   constructor(public httpResponse: HttpResponse = new HttpResponse()) {}
