@@ -1,26 +1,26 @@
 import { RouteDefinition } from "../../model/routeDefinition";
 
-export function Get(path: string) {
+export function Get(path?: string) {
   return _routerBind("get", path);
 }
 
-export function Post(path: string) {
+export function Post(path?: string) {
   return _routerBind("post", path);
 }
 
-export function Delete(path: string) {
+export function Delete(path?: string) {
   return _routerBind("delete", path);
 }
 
-export function Put(path: string) {
+export function Put(path?: string) {
   return _routerBind("put", path);
 }
 
-export function Patch(path: string) {
+export function Patch(path?: string) {
   return _routerBind("patch", path);
 }
 
-const _routerBind = (method: RouteDefinition["method"], path: string) => {
+const _routerBind = (method: RouteDefinition["method"], path?: string) => {
   return (target: any, propertyKey: string): void => {
     if (!Reflect.hasMetadata("routes", target.constructor)) {
       Reflect.defineMetadata("routes", [], target.constructor);
@@ -31,7 +31,7 @@ const _routerBind = (method: RouteDefinition["method"], path: string) => {
     ) as Array<RouteDefinition>;
     routes.push({
       method,
-      path,
+      path: path ? path : "/",
       methodName: propertyKey,
     });
     Reflect.defineMetadata("routes", routes, target.constructor);
