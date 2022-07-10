@@ -1,8 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import passport from "passport";
+import { Service } from "typedi";
 import { HttpResponse } from "../shared/response/response";
 import { Role, UserEntity } from "../user/model/entity/user.entity";
 
+@Service()
 export class Middleware {
   constructor(public httpResponse: HttpResponse = new HttpResponse()) {}
 
@@ -21,6 +23,10 @@ export class Middleware {
     if (user.role !== Role.OWNER) {
       return this.httpResponse.Unauthorized(res, "No tienes permiso");
     }
+    return next();
+  }
+  test(req: Request, res: Response, next: NextFunction) {
+    console.log(req.ip);
     return next();
   }
 }
